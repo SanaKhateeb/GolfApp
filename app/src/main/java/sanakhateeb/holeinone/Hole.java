@@ -4,6 +4,12 @@ public class Hole {
     private int holeNum;
     private int score;
 
+    public Hole(int num, int strokes)
+    {
+        holeNum = num;
+        score = strokes;
+    }
+
     public int getHoleNum() {
         return holeNum;
     }

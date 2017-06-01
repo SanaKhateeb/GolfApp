@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class HoleAdapter extends BaseAdapter {
-    private Hole[] mHoles;
-    private Context mContext;
+    private final Hole[] mHoles;
+    private final Context mContext;
 
     public HoleAdapter(Context context, Hole[] holes)
     {
@@ -34,8 +34,8 @@ public class HoleAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final ViewHolder holder;
 
         if(convertView == null)
         {
@@ -56,6 +56,33 @@ public class HoleAdapter extends BaseAdapter {
         Hole hole = mHoles[position];
         holder.holeLabel.setText("Hole " + hole.getHoleNum() + ":");
         holder.holeNumText.setText(hole.getScore() + "");
+
+        holder.minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newScore = mHoles[position].getScore() - 1;
+                if (newScore < 0)
+                {
+                    mHoles[position].setScore(0);
+                    holder.holeNumText.setText("0");
+                }
+                else
+                {
+                    mHoles[position].setScore(newScore);
+                    holder.holeNumText.setText(newScore + "");
+                }
+            }
+        });
+
+        holder.positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newScore = mHoles[position].getScore() + 1;
+                mHoles[position].setScore(newScore);
+                holder.holeNumText.setText(newScore + "");
+
+            }
+        });
 
         return convertView;
     }

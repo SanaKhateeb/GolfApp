@@ -1,11 +1,8 @@
 package sanakhateeb.holeinone;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -17,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mEmpty;
     private HoleAdapter adapter;
     private final static int NUM_HOLES = 18;
-    private Hole[] mHoles = new Hole[NUM_HOLES];
+    private Hole[] mHoles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,20 +23,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        iniitializeList();
+        iniitializeHoles();
         mListView = (ListView) findViewById(android.R.id.list);
         mEmpty = (TextView) findViewById(R.id.loading_text);
+
         adapter = new HoleAdapter(this, mHoles);
         mListView.setEmptyView(mEmpty);
         mListView.setAdapter(adapter);
     }
-    private void iniitializeList() {
+
+    private void iniitializeHoles() {
+        mHoles = new Hole[NUM_HOLES];
         for(int i = 0; i < mHoles.length; i++)
         {
-            Hole hole = new Hole();
-            hole.setHoleNum(i + 1);
-            hole.setScore(0);
-            mHoles[i] = hole;
+            mHoles[i] = new Hole(i+1, 0);
         }
     }
 
