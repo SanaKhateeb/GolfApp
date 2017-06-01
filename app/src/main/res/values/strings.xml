@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HoleInOne</string>
+    <string name="main_title">Scoreboard</string>
+    <string name="action_settings">Clear Strokes</string>
+</resources>
