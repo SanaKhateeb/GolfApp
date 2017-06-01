@@ -1,5 +1,7 @@
 package sanakhateeb.holeinone;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,20 +12,24 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String PREFS_FILE = "sanakhateeb.holeinone.preferences";
+    private static final String KEY_SCORECOUNT = "key_scorecount";
     private ListView mListView;
     private TextView mEmpty;
     private HoleAdapter adapter;
-    private final static int NUM_HOLES = 18;
-    private Hole[] mHoles;
-
-    @Override
+    private Hole[] mHoles = new Hole[18];
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        iniitializeHoles();
+        mSharedPreferences = getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
+
+        initializeHoles();
         mListView = (ListView) findViewById(android.R.id.list);
         mEmpty = (TextView) findViewById(R.id.loading_text);
 
@@ -32,12 +38,23 @@ public class MainActivity extends AppCompatActivity {
         mListView.setAdapter(adapter);
     }
 
-    private void iniitializeHoles() {
-        mHoles = new Hole[NUM_HOLES];
+    private void initializeHoles() {
+        int score;
         for(int i = 0; i < mHoles.length; i++)
         {
-            mHoles[i] = new Hole(i+1, 0);
+            score = mSharedPreferences.getInt(KEY_SCORECOUNT + i, 0);
+            mHoles[i] = new Hole(i+1, score);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        for(int i =0; i < mHoles.length; i++)
+        {
+            mEditor.putInt(KEY_SCORECOUNT + i, mHoles[i].getScore());
+        }
+        mEditor.apply();
     }
 
     @Override
@@ -56,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            mEditor.clear();
+            mEditor.apply();
+            for(int i = 0; i < mHoles.length; i++)
+            {
+                mHoles[i].setScore(0);
+                adapter.notifyDataSetChanged();
+            }
             return true;
         }
 
