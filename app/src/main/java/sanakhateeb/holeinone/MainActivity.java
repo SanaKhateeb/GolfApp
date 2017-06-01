@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0; i < mHoles.length; i++)
             {
                 mHoles[i].setScore(0);
-                adapter.notifyDataSetChanged();
             }
+            adapter.notifyDataSetChanged();
             return true;
         }
 
