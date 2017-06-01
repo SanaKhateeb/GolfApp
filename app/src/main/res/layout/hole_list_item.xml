@@ -3,67 +3,68 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal"
         android:weightSum="100">
 
         <TextView
             android:id="@+id/hole_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_weight="10"
+            android:layout_weight="30"
+            android:fontFamily="sans-serif"
+            android:gravity="start"
             android:text="..."
+            android:textAlignment="viewStart"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:textStyle="bold"
-            tools:text="Hole 8:"/>
+            tools:text="Hole 18:"/>
 
         <TextView
             android:id="@+id/num_hole_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/minus_button"
             android:layout_toRightOf="@+id/hole_label"
             android:layout_toStartOf="@+id/minus_button"
-            android:layout_weight="70"
+            android:layout_weight="50"
             android:text="--"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="22sp"
             tools:text="99"/>
 
         <Button
             android:id="@+id/minus_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/plus_button"
             android:layout_toStartOf="@+id/plus_button"
-            android:minHeight="0dp"
-            android:minWidth="10dp"
-            android:maxWidth="15dp"
             android:layout_weight="10"
+            android:minHeight="0dp"
             android:text="-"
             android:textSize="20sp"/>
 
         <Button
             android:id="@+id/plus_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:minHeight="0dp"
-            android:minWidth="10dp"
-            android:maxWidth="15dp"
             android:layout_weight="10"
+            android:minHeight="0dp"
             android:text="+"
             android:textSize="20sp"/>
 

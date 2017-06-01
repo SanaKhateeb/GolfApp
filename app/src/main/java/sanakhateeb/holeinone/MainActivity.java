@@ -9,10 +9,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView mListView;
+    private ListView mListView;
+    private TextView mEmpty;
+    private HoleAdapter adapter;
+    private final static int NUM_HOLES = 18;
+    private Hole[] mHoles = new Hole[NUM_HOLES];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +26,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        iniitializeList();
         mListView = (ListView) findViewById(android.R.id.list);
+        mEmpty = (TextView) findViewById(R.id.loading_text);
+        adapter = new HoleAdapter(this, mHoles);
+        mListView.setEmptyView(mEmpty);
+        mListView.setAdapter(adapter);
+    }
+    private void iniitializeList() {
+        for(int i = 0; i < mHoles.length; i++)
+        {
+            Hole hole = new Hole();
+            hole.setHoleNum(i + 1);
+            hole.setScore(0);
+            mHoles[i] = hole;
+        }
     }
 
     @Override
